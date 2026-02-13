@@ -1,0 +1,106 @@
+<div class="container mt-4">
+  <h2>Contacto</h2>
+
+  <form #formContacto="ngForm"
+        (ngSubmit)="procesarFormulario(formContacto)">
+
+    <!-- NOMBRE -->
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+
+      <input
+        type="text"
+        class="form-control"
+        name="nombre"
+        ngModel
+        required
+        minlength="3"
+        maxlength="30"
+        pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+        #nombre="ngModel"
+        (input)="soloLetras($event)">
+
+      <div *ngIf="nombre.invalid && nombre.touched"
+           class="text-danger mt-1">
+
+        <small *ngIf="nombre.errors?.['required']">
+          El nombre es obligatorio
+        </small>
+
+        <small *ngIf="nombre.errors?.['minlength']">
+          El nombre debe tener al menos 3 caracteres
+        </small>
+
+        <small *ngIf="nombre.errors?.['maxlength']">
+          El nombre no debe exceder 30 caracteres
+        </small>
+
+        <small *ngIf="nombre.errors?.['pattern']">
+          El nombre solo debe contener letras
+        </small>
+
+      </div>
+    </div>
+
+    <!-- CORREO -->
+    <div class="mb-3">
+      <label class="form-label">Correo</label>
+
+      <input
+        type="email"
+        class="form-control"
+        name="correo"
+        ngModel
+        required
+        email
+        minlength="6"
+        maxlength="50"
+        #correo="ngModel">
+
+      <div *ngIf="correo.invalid && correo.touched"
+           class="text-danger mt-1">
+
+        <small *ngIf="correo.errors?.['required']">
+          El correo es obligatorio
+        </small>
+
+        <small *ngIf="correo.errors?.['email']">
+          Formato de correo no válido
+        </small>
+
+        <small *ngIf="correo.errors?.['minlength']">
+          El correo debe tener más de 5 caracteres
+        </small>
+
+        <small *ngIf="correo.errors?.['maxlength']">
+          El correo no debe exceder 50 caracteres
+        </small>
+
+      </div>
+    </div>
+
+    <!-- BOTÓN -->
+    <button class="btn btn-primary mt-2" type="submit">
+      Enviar
+    </button>
+
+  </form>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="modalResultado" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">{{ tituloModal }}</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>{{ mensajeModal }}</p>
+      </div>
+
+    </div>
+  </div>
+</div>
